@@ -1,0 +1,22 @@
+name : ML CI Pipeline
+on: [push]
+jobs:
+   build:
+     runs-on: ubuntu-latest
+     steps:
+     -name: CheckoutnCode
+     uses:actions/checkout@v3
+     -name:Install Python
+     uses:actions/setup-python@v4
+     with:
+      python-version:'3.10.11'
+    -name:Install Dependencies
+     run:pip install -r requirements.txt
+    -name:Run Docker Container
+     run:docker run ml-devops-demo .
+    -name:Build Docker Image
+      run: docker build -t ml-devops-demo .
+    -name:Run  Docker Container
+     run: docker run ml-devops-demo
+     -name: Deploy Container
+      run:docker run ml-devops-demo
